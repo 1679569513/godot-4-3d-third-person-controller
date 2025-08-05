@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3765dge2xh0"]
 
 [ext_resource type="PackedScene" uid="uid://bmg4l7oil4aeu" path="res://Player/GrenadeVisuals/grenade/grenade.glb" id="1_2hras"]
-[ext_resource type="Script" path="res://Player/GrenadeVisuals/grenade/grenade.gd" id="2_ldjuw"]
+[ext_resource type="Script" uid="uid://cah6mfwyy7gww" path="res://Player/GrenadeVisuals/grenade/grenade.gd" id="2_ldjuw"]
 [ext_resource type="Material" uid="uid://bqiflyx3ow1ul" path="res://Player/GrenadeVisuals/grenade/grenade.material" id="3_wctyh"]
 
 [sub_resource type="Animation" id="Animation_afydg"]
@@ -38,8 +38,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_icflb"]
 _data = {
-"RESET": SubResource("Animation_afydg"),
-"wave": SubResource("Animation_cxnel")
+&"RESET": SubResource("Animation_afydg"),
+&"wave": SubResource("Animation_cxnel")
 }
 
 [node name="grenade" instance=ExtResource("1_2hras")]

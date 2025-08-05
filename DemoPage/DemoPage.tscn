@@ -1,7 +1,7 @@
 [gd_scene load_steps=33 format=3 uid="uid://cnj0t3ad178q6"]
 
-[ext_resource type="Script" path="res://DemoPage/DemoPage.gd" id="1_4brsx"]
-[ext_resource type="Shader" path="res://DemoPage/Assets/BlurShader.gdshader" id="2_07raf"]
+[ext_resource type="Script" uid="uid://u0hk4wuiyqce" path="res://DemoPage/DemoPage.gd" id="1_4brsx"]
+[ext_resource type="Shader" uid="uid://dkxx1s1ixeg1o" path="res://DemoPage/Assets/BlurShader.gdshader" id="2_07raf"]
 [ext_resource type="Texture2D" uid="uid://3fxtm3u8im2" path="res://DemoPage/Assets/gdquest_logo_white.svg" id="3_n7elw"]
 [ext_resource type="Texture2D" uid="uid://c1h5gk8rsf3va" path="res://DemoPage/Assets/RoundedRectangle.png" id="4_paxwi"]
 [ext_resource type="Texture2D" uid="uid://bisdpbdirkat6" path="res://DemoPage/Assets/DemoPageBackground.png" id="5_3cf56"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://xhe0n1psocjo" path="res://DemoPage/ControllerIcons/wasd.png" id="8_ftfx8"]
 [ext_resource type="Texture2D" uid="uid://078sfj6nla2e" path="res://DemoPage/ControllerIcons/spacebar2.png" id="9_0yun6"]
 [ext_resource type="Texture2D" uid="uid://dr3g38uhvcdhd" path="res://DemoPage/ControllerIcons/joystickL_side.png" id="9_16jmy"]
-[ext_resource type="Script" path="res://DemoPage/LinkButton.gd" id="9_scsih"]
+[ext_resource type="Script" uid="uid://ds3oeqwmacasb" path="res://DemoPage/LinkButton.gd" id="9_scsih"]
 [ext_resource type="Texture2D" uid="uid://cgkvjl80iqkeg" path="res://DemoPage/ControllerIcons/tab.png" id="10_6dsjm"]
 [ext_resource type="Texture2D" uid="uid://tfus7d2ysvap" path="res://DemoPage/ControllerIcons/keyboard.png" id="10_uxdfh"]
 [ext_resource type="Texture2D" uid="uid://drxg34lsicm31" path="res://DemoPage/ControllerIcons/mouse.png" id="10_y1v2l"]

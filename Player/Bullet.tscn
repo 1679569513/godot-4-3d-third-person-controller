@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bguebyvtegnv8"]
 
-[ext_resource type="Script" path="res://Player/Bullet.gd" id="1_8b555"]
+[ext_resource type="Script" uid="uid://dxn1c5l6eut0y" path="res://Player/Bullet.gd" id="1_8b555"]
 [ext_resource type="PackedScene" uid="uid://5ttf446nggra" path="res://Player/BulletVisuals/BulletModel.tscn" id="2_68e7a"]
 [ext_resource type="AudioStream" uid="uid://c7w6ecthdjbuk" path="res://Player/Sounds/lasershot-102078.wav" id="3_3vyow"]
 

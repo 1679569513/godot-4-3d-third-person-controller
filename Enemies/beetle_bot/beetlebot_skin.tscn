@@ -1,21 +1,21 @@
 [gd_scene load_steps=41 format=3 uid="uid://cxt8d0d4ift6"]
 
-[ext_resource type="Script" path="res://Enemies/beetle_bot/beetlebot_skin.gd" id="1_1smde"]
+[ext_resource type="Script" uid="uid://xc4gq2r4sbwh" path="res://Enemies/beetle_bot/beetlebot_skin.gd" id="1_1smde"]
 [ext_resource type="PackedScene" uid="uid://dbqoj8oam1dsg" path="res://Enemies/beetle_bot/beetle_bot_fused.glb" id="1_r7amh"]
-[ext_resource type="Shader" path="res://Player/face_mat.gdshader" id="3_p37mm"]
+[ext_resource type="Shader" uid="uid://bxco3wmm653ql" path="res://Player/face_mat.gdshader" id="3_p37mm"]
 [ext_resource type="Material" uid="uid://h2e57pyy6lu4" path="res://Enemies/beetle_bot/materials/beetlebot_lights_mat.tres" id="4_4158y"]
 [ext_resource type="Texture2D" uid="uid://d3i42hq0p8ijb" path="res://shared/eye_mask.png" id="4_trpq3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_awqgi"]
 render_priority = 0
 shader = ExtResource("3_p37mm")
+shader_parameter/face_texture = ExtResource("4_trpq3")
 shader_parameter/intensity = 2.0
 shader_parameter/screen_color = Color(0.619608, 0.862745, 0, 0.0196078)
 shader_parameter/screen_red_offset = Vector2(0, 0)
 shader_parameter/screen_green_offset = Vector2(0, 0)
 shader_parameter/screen_blue_offset = Vector2(0, 0)
 shader_parameter/pixel_size = 32.0
-shader_parameter/face_texture = ExtResource("4_trpq3")
 
 [sub_resource type="Animation" id="Animation_ydh7v"]
 resource_name = "Bob"
@@ -1980,12 +1980,12 @@ tracks/53/keys = PackedFloat32Array(0, 1, 1, 1, 1)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w0msd"]
 _data = {
-"Bob": SubResource("Animation_ydh7v"),
-"RESET": SubResource("Animation_xu60d"),
-"headbutt": SubResource("Animation_v7fqn"),
-"idle": SubResource("Animation_bah6u"),
-"poweroff": SubResource("Animation_nkwa8"),
-"walk": SubResource("Animation_t5abe")
+&"Bob": SubResource("Animation_ydh7v"),
+&"RESET": SubResource("Animation_xu60d"),
+&"headbutt": SubResource("Animation_v7fqn"),
+&"idle": SubResource("Animation_bah6u"),
+&"poweroff": SubResource("Animation_nkwa8"),
+&"walk": SubResource("Animation_t5abe")
 }
 
 [sub_resource type="Animation" id="Animation_i3gya"]
@@ -2041,7 +2041,7 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h5fu2"]
 _data = {
-"light_shutdown": SubResource("Animation_i3gya")
+&"light_shutdown": SubResource("Animation_i3gya")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tvll1"]
