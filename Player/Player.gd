@@ -231,16 +231,16 @@ func shoot() -> void:
 	var origin := global_position + Vector3.UP
 	var aim_target := _camera_controller.get_aim_target()
 	var aim_direction := (aim_target - origin).normalized()
-	bullet.velocity = aim_direction * bullet_speed
+	bullet.velocity = aim_direction * bullet_speed   # 设置初速度
 	bullet.distance_limit = 14.0
-	get_parent().add_child(bullet)
+	get_parent().add_child(bullet) # 将子弹添加到场景树（挂载到父节点）
 	bullet.global_position = origin
 
 
 func reset_position() -> void:
 	transform.origin = _start_position
 
-
+# 金币收集功能
 func collect_coin() -> void:
 	_coins += 1
 	_ui_coins_container.update_coins_amount(_coins)
@@ -253,15 +253,18 @@ func lose_coins() -> void:
 		var coin := COIN_SCENE.instantiate()
 		get_parent().add_child(coin)
 		coin.global_position = global_position
-		coin.spawn(1.5)
-	_ui_coins_container.update_coins_amount(_coins)
+		coin.spawn(1.5)  # 触发金币弹出动画
+	_ui_coins_container.update_coins_amount(_coins) # 更新UI显示（必须在主线程操作）
 
 
+
+# 获取基于相机朝向的输入向量
+# 功能：将2D输入向量转换为3D世界空间向量，并考虑相机旋转和动画状态
 func _get_camera_oriented_input() -> Vector3:
-	if _attack_animation_player.is_playing():
+	if _attack_animation_player.is_playing(): # 攻击动画播放时锁定移动输入（防止动画穿帮）
 		return Vector3.ZERO
 
-	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	var raw_input := Input.get_vector("move_left", "move_right", "move_up", "move_down") # 获取原始2D输入向量（标准化到[-1,1]范围）
 
 	var input := Vector3.ZERO
 	# This is to ensure that diagonal input isn't stronger than axis aligned input
@@ -277,14 +280,19 @@ func play_foot_step_sound() -> void:
 	_step_sound.pitch_scale = randfn(1.2, 0.2)
 	_step_sound.play()
 
-
+# 角色受击处理函数
 func damage(_impact_point: Vector3, force: Vector3) -> void:
 	# Always throws character up
-	force.y = abs(force.y)
+	force.y = abs(force.y) # 强制垂直方向为正（确保角色总是被击飞向上）
 	velocity = force.limit_length(max_throwback_force)
 	lose_coins()
 
 
+# 角色朝向控制函数
+# 功能：平滑旋转模型使其面向移动方向
+# 参数：
+#   direction: Vector3 - 目标方向向量（世界坐标系，需标准化）
+#   delta: float - 帧间隔时间（用于平滑插值）
 func _orient_character_to_direction(direction: Vector3, delta: float) -> void:
 	var left_axis := Vector3.UP.cross(direction)
 	var rotation_basis := Basis(left_axis, Vector3.UP, direction).get_rotation_quaternion()
