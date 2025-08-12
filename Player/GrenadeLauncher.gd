@@ -66,11 +66,11 @@ func _update_throw_velocity() -> void:
 	# length based on how far behind the camera is compared to the character.
 	#‌# 数学表达式‌
 	## result = a + (b - a) * t
-    ## up_ratio弧度 映射到0-1区间
+	## up_ratio弧度 映射到0-1区间
 	var base_throw_distance: float = lerp(min_throw_distance, max_throw_distance, up_ratio)  # 计算基础投掷距离（根据俯仰角在最小/最大距离间插值）
 	# var camera_forward_distance := camera.global_position.project(throw_direction).distance_to(_launch_point.global_position.project(throw_direction))
 	var throw_distance := base_throw_distance #+ camera_forward_distance  
-    # global_camera_look_position 摄像机最终注视位置 from_look_position 摄像机初始注视点  throw_direction：标准化投掷方向向量 throw_distance：投掷物飞行距离标量值
+	# global_camera_look_position 摄像机最终注视位置 from_look_position 摄像机初始注视点  throw_direction：标准化投掷方向向量 throw_distance：投掷物飞行距离标量值
 	var global_camera_look_position := from_look_position + throw_direction * throw_distance
 	_raycast.target_position = global_camera_look_position - _raycast.global_position # 射线发射器
 
@@ -109,7 +109,7 @@ func _update_throw_velocity() -> void:
 	var target_position_xz_plane := Vector3(to_target.x, 0.0, to_target.z)
 	var start_position_xz_plane := Vector3(_launch_point.position.x, 0.0, _launch_point.position.z)
 
-	var forward_velocity := (target_position_xz_plane - start_position_xz_plane) / _time_to_land  计算水平初速度
+	var forward_velocity := (target_position_xz_plane - start_position_xz_plane) / _time_to_land  #计算水平初速度
 	var velocity_up := sqrt(2.0 * gravity * motion_up) # 计算垂直初速度（v=√(2gh)）
 
 	# Caching the found initial_velocity vector so we can use it on the throw() function
@@ -183,7 +183,7 @@ func _draw_throw_path() -> void:
 		# 当顶点按‌顺时针（CW）顺序‌连接时，定义三角形‌正面‌
 		# 当顶点按‌逆时针（CCW）顺序‌连接时，定义三角形‌背面‌
 		# 构建两个三角形组成四边形面片（顺时针顶点顺序）
-		# 三角形1：右终点 -> 左起点 -> 左终点 （待确认）
+		# 三角形1：右终点 -> 左起点 -> 左终点 
 		# Draw first triangle
 		st.set_uv(uv_value_right_end)
 		st.add_vertex(trail_point_right_end)

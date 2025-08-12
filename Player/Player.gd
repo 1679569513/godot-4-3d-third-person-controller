@@ -61,7 +61,7 @@ enum WEAPON_TYPE { DEFAULT, GRENADE }
 @onready var _gravity: float = -30.0 # 重力加速度(米/秒²)
 @onready var _ground_height: float = 0.0 # 地面高度基准值
 @onready var _start_position := global_transform.origin # 初始重生位置
-@onready var _coins := 0 当前硬币收集数量
+@onready var _coins := 0 #当前硬币收集数量
 @onready var _is_on_floor_buffer := false # 地面检测缓冲(防止快速切换状态)
 
 @onready var _shoot_cooldown_tick := shoot_cooldown # 射击冷却计时器
@@ -74,41 +74,41 @@ func _ready() -> void:
 	_grenade_aim_controller.visible = false # 默认隐藏榴弹发射器的视觉组件
 	weapon_switched.emit(WEAPON_TYPE.keys()[0]) # 发射武器切换信号，传递默认武器名称（枚举转字符串）c
 
-    # 输入动作动态注册检查（兼容性处理）
-    # 当项目缺少必需输入动作时自动注册基础控制方案
+	# 输入动作动态注册检查（兼容性处理）
+	# 当项目缺少必需输入动作时自动注册基础控制方案
 	# When copying this character to a new project, the project may lack required input actions.
 	# In that case, we register input actions for the user at runtime.
 	if not InputMap.has_action("move_left"):
 		_register_input_actions()
 	# 连接角色动画步事件到脚步声播放方法
-    # 使用Callable绑定确保类型安全
+	# 使用Callable绑定确保类型安全
 	_character_skin.stepped.connect(play_foot_step_sound)
 
 
 func _physics_process(delta: float) -> void:
 	# Calculate ground height for camera controller
-    # region 地面高度计算
-    # 通过ShapeCast检测获取地面高度（用于摄像机高度调整）
+	# region 地面高度计算
+	# 通过ShapeCast检测获取地面高度（用于摄像机高度调整）
 	if _ground_shapecast.get_collision_count() > 0:
-        # 遍历所有碰撞结果取最高点作为地面基准
+		# 遍历所有碰撞结果取最高点作为地面基准
 		for collision_result in _ground_shapecast.collision_result:
 			_ground_height = max(_ground_height, collision_result.point.y)
 	else:
-        # 无碰撞时使用预设目标位置作为地面高度
+		# 无碰撞时使用预设目标位置作为地面高度
 		_ground_height = global_position.y + _ground_shapecast.target_position.y
 	if global_position.y < _ground_height:
 		_ground_height = global_position.y
 
 	# Swap weapons
-    # 防止角色穿地时的地面高度错误
+	# 防止角色穿地时的地面高度错误
 	if Input.is_action_just_pressed("swap_weapons"): 
-        # 切换武器枚举状态（DEFAULT <-> GRENADE）
+		# 切换武器枚举状态（DEFAULT <-> GRENADE）
 		_equipped_weapon = WEAPON_TYPE.DEFAULT if _equipped_weapon == WEAPON_TYPE.GRENADE else WEAPON_TYPE.GRENADE
 		_grenade_aim_controller.visible = _equipped_weapon == WEAPON_TYPE.GRENADE  # 更新榴弹发射器可见性
 		weapon_switched.emit(WEAPON_TYPE.keys()[_equipped_weapon]) # 发射武器切换信号（传递当前武器名称）
-    #endregion
+	#endregion
 
-    #region 输入状态检测
+	#region 输入状态检测
 	# Get input and movement state
 	var is_attacking := Input.is_action_pressed("attack") and not _attack_animation_player.is_playing() # 攻击状态（按住攻击键且不在攻击动画中）
 	var is_just_attacking := Input.is_action_just_pressed("attack") # 瞬时攻击触发（攻击键刚按下）
@@ -117,11 +117,11 @@ func _physics_process(delta: float) -> void:
 	var is_air_boosting := Input.is_action_pressed("jump") and not is_on_floor() and velocity.y > 0.0 # 空中跳跃加速（跳跃键按住且上升阶段）
 	var is_just_on_floor := is_on_floor() and not _is_on_floor_buffer  # 刚落地检测（当前帧刚接触地面）
 
-    # 更新地面状态缓冲（用于下一帧检测）
+	# 更新地面状态缓冲（用于下一帧检测）
 	_is_on_floor_buffer = is_on_floor()
-     # 获取基于摄像机朝向的输入方向
+	 # 获取基于摄像机朝向的输入方向
 	_move_direction = _get_camera_oriented_input()
-    #endregion
+	#endregion
 
 	#region 角色方向控制
 	# 保存最后有效移动方向（防止快速转向）
@@ -164,7 +164,7 @@ func _physics_process(delta: float) -> void:
 
 	# Update attack state and position
 
-    #region  攻击行为处理模块
+	#region  攻击行为处理模块
 	_shoot_cooldown_tick += delta # 武器冷却计时器更新（每帧累加delta时间）
 	_grenade_cooldown_tick += delta
 
@@ -184,7 +184,7 @@ func _physics_process(delta: float) -> void:
 
 	velocity.y += _gravity * delta
 
-    # 跳跃系统处理
+	# 跳跃系统处理
 	if is_just_jumping:
 		velocity.y += jump_initial_impulse
 	elif is_air_boosting:
