@@ -16,12 +16,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta) -> void:
-	_velocity += Vector3.DOWN * gravity * delta
-	var collision := move_and_collide(_velocity * delta)
+	_velocity += Vector3.DOWN * gravity * delta  # 应用重力加速度（Y轴负方向）
+	var collision := move_and_collide(_velocity * delta) # 执行带碰撞检测的移动
 	if collision:
-		_velocity = _velocity.bounce(collision.get_normal(0)) * 0.7
+		_velocity = _velocity.bounce(collision.get_normal(0)) * 0.7 # 计算反弹速度（保留70%动能）
 		if _explosion_start_timer.is_stopped():
-			_explosion_start_timer.start()
+			_explosion_start_timer.start() # 触发爆炸效果
 
 
 func throw(throw_velocity: Vector3) -> void:
