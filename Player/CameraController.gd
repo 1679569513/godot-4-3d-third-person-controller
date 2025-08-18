@@ -47,7 +47,7 @@ var _euler_rotation: Vector3 # 当前欧拉角旋转
 
 ## 处理未捕获的输入事件
 func _unhandled_input(event: InputEvent) -> void:
-    # 检测是否为鼠标移动输入且鼠标模式为捕获状态
+	# 检测是否为鼠标移动输入且鼠标模式为捕获状态
 	_mouse_input = event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED
 	if _mouse_input:
 		_rotation_input = -event.relative.x * mouse_sensitivity
@@ -57,15 +57,15 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if not _anchor:
 		return
-    # 处理手柄输入
+	# 处理手柄输入
 	_rotation_input += Input.get_action_raw_strength("camera_left") - Input.get_action_raw_strength("camera_right")
 	_tilt_input += Input.get_action_raw_strength("camera_up") - Input.get_action_raw_strength("camera_down")
 
-    # 处理Y轴反转
+	# 处理Y轴反转
 	if invert_mouse_y:
 		_tilt_input *= -1
 
-    # 处理射线碰撞检测
+	# 处理射线碰撞检测
 	if _camera_raycast.is_colliding():
 		_aim_target = _camera_raycast.get_collision_point()
 		_aim_collider = _camera_raycast.get_collider()
@@ -74,20 +74,20 @@ func _process(delta: float) -> void:
 		_aim_collider = null
 
 	# Set camera controller to current ground level for the character
-    # 计算目标位置（角色位置+预设偏移量）
+	# 计算目标位置（角色位置+预设偏移量）
 	var target_position := _anchor.global_position + _offset
 	target_position.y = lerp(global_position.y, _anchor._ground_height, 0.1)
 	global_position = target_position
 
 	# Rotates camera using euler rotation
-    # 更新欧拉角旋转（基于输入和时间增量）
+	# 更新欧拉角旋转（基于输入和时间增量）
 	_euler_rotation.x += _tilt_input * delta
 	_euler_rotation.x = clamp(_euler_rotation.x, tilt_lower_limit, tilt_upper_limit)
 	_euler_rotation.y += _rotation_input * delta
 
 	transform.basis = Basis.from_euler(_euler_rotation)
 
-    # 同步相机与枢轴点的全局变换
+	# 同步相机与枢轴点的全局变换
 	camera.global_transform = _pivot.global_transform
 	camera.rotation.z = 0 # 消除Z轴旋转（防止相机倾斜）
 
@@ -103,7 +103,7 @@ func setup(anchor: CharacterBody3D) -> void:
 	global_transform = _anchor.global_transform # 同步初始变换到锚点位置
 	_offset = global_transform.origin - anchor.global_transform.origin# 计算初始偏移量（相机与角色的相对位置）
 	set_pivot(CAMERA_PIVOT.THIRD_PERSON)
-    # 平滑过渡相机位置到枢轴点位置（10%插值）
+	# 平滑过渡相机位置到枢轴点位置（10%插值）
 	camera.global_transform = camera.global_transform.interpolate_with(_pivot.global_transform, 0.1)
 	_camera_spring_arm.add_excluded_object(_anchor.get_rid()) # 将角色从弹簧臂碰撞检测中排除（防止角色自身遮挡相机）
 	_camera_raycast.add_exception_rid(_anchor.get_rid())  # 将角色从射线检测中排除（防止角色自身被误检测）
